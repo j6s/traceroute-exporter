@@ -10,7 +10,7 @@ order to monitor the number of hops are needed to a given destination host.
 $ go run main.go --listen ':9094'
 
 # Docker
-$ docker run --rm j6s/traceroute-exporter --listen ':9094'
+$ docker run --rm thej6s/traceroute-exporter --listen ':9094'
 ```
 
 Now call `localhost:9094/metrics?destination=1.1.1.1`.
