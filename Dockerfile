@@ -1,6 +1,12 @@
-FROM golang:1.15.1
+FROM golang:1.15 as builder
 
-RUN apt-get update && apt-get install -y traceroute
-COPY main.go /traceroute-exporter.go
+COPY ./ /build
+RUN go build -o /traceroute-exporter /build/main.go
 
-ENTRYPOINT go run /traceroute-exporter.go
+
+FROM alpine:3.13
+
+RUN apk add --no-cache tcptraceroute libc6-compat
+COPY --from=builder /traceroute-exporter /usr/local/bin/traceroute-exporter
+
+ENTRYPOINT traceroute-exporter
