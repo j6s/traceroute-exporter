@@ -4,7 +4,7 @@ COPY ./ /build
 RUN go build -o /traceroute-exporter /build/main.go
 
 
-FROM alpine:3.13
+FROM alpine:3.15
 
 RUN apk add --no-cache tcptraceroute libc6-compat
 COPY --from=builder /traceroute-exporter /usr/local/bin/traceroute-exporter
